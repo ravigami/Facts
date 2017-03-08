@@ -1,12 +1,17 @@
-package com.telstra.facts;
+package com.telstra.facts.gui;
+
+/**
+ * Created by ravi.gami on 3/8/16.
+ */
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class FactsListActivity extends AppCompatActivity {
+import com.telstra.facts.R;
+
+public class FactsListActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
