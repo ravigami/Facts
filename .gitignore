@@ -76,3 +76,5 @@ captures/
 .idea/libraries/gson_2_6_2.xml
 .idea/libraries/library_1_0_19.xml
 .idea/libraries/picasso_2_5_2.xml
+.idea/libraries/butterknife_8_0_1.xml
+.idea/libraries/butterknife_annotations_8_0_1.xml
