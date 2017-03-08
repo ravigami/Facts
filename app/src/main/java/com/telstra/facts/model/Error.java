@@ -33,4 +33,8 @@ public class Error implements Serializable {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public String getError() {
+        return error;
+    }
 }

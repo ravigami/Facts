@@ -7,5 +7,6 @@
     <!-- Color Specification -->
     <color name="colorDarkGrey">#FF444444</color>
     <color name="colorLightGrey">#FFDEDEDE</color>
+    <color name="colorBlue">#283593</color>
 
 </resources>

@@ -7,6 +7,8 @@ package com.telstra.facts.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -33,5 +35,19 @@ public class FactResponse implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    /**
+     * Results can be filtered here based on filter criteria.
+     * @return
+     */
+    public ArrayList<Fact> getFilteredFacts() {
+        ArrayList<Fact> filteredFacts = new ArrayList<>();
+        for (Fact fact:this.facts) {
+            if (! (StringUtils.isEmpty(fact.getTitle()) && StringUtils.isEmpty(fact.getDescription()) && StringUtils.isEmpty(fact.getImageUrl()))){
+                filteredFacts.add(fact);
+            }
+        }
+        return filteredFacts;
     }
 }

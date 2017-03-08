@@ -23,8 +23,15 @@
         <item name="android:shadowColor">@color/colorLightGrey</item>
         <item name="android:shadowRadius">2</item>
     </style>
+
+    <style name="InfoFontStyle" parent="AppFontStyle">
+        <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textColor">@color/colorDarkGrey</item>
+    </style>
+
     <style name="TitleFontStyle" parent="AppFontStyle">
         <item name="android:textSize">@dimen/text_size_title</item>
+        <item name="android:textColor">@color/colorBlue</item>
     </style>
     <style name="HeaderFontStyle" parent="AppFontStyle">
         <item name="android:textSize">@dimen/text_size_header</item>

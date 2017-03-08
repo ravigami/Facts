@@ -10,17 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="2dp"
-        android:elevation="5dp"
-        card_view:cardCornerRadius="3dp">
+        android:layout_marginLeft="@dimen/card_margin"
+        android:layout_marginRight="@dimen/card_margin"
+        android:layout_marginTop="@dimen/card_top_margin"
+        android:elevation="@dimen/card_elevation"
+        card_view:cardCornerRadius="@dimen/card_radius">
 
         <RelativeLayout
             android:id="@+id/root_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp">
+            android:layout_margin="@dimen/card_margin_inner_layout"
+            android:padding="@dimen/card_margin">
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/item_title"
@@ -28,17 +29,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:textColor="@color/colorDarkGrey"
+                android:layout_marginBottom="@dimen/generic_margin"
             />
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/item_image_view"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="@dimen/image_size_width"
+                android:layout_height="@dimen/image_size_height"
                 android:layout_alignParentRight="true"
                 android:layout_below="@id/item_title"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:scaleType="fitCenter"
+                android:scaleType="centerCrop"
             />
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/item_description"

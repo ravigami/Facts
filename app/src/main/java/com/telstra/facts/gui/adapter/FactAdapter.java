@@ -56,7 +56,10 @@ public class FactAdapter extends RecyclerView.Adapter<FactAdapter.FactViewHolder
 
         holder.itemImageView.setImageResource(R.mipmap.placeholder);
         if (!StringUtils.isEmpty(fact.getImageUrl())) {
+            holder.itemImageView.setVisibility(View.VISIBLE);
             Picasso.with(context).load(fact.getImageUrl()).placeholder(R.mipmap.placeholder).into(holder.itemImageView);
+        }else{
+            holder.itemImageView.setVisibility(View.GONE);
         }
     }
 
