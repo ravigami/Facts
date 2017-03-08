@@ -56,6 +56,9 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
         getFactInfo();
     }
 
+    /**
+     * Initializes the UI elements.
+     */
     private void initUI() {
         Log.d(FACTS_LIST_TAG, "initUI called");
         swipeRefreshLayout.setOnRefreshListener(this);
@@ -68,16 +71,21 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
         factRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, factRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                //Handle the click event here.
+                Log.d(FACTS_LIST_TAG, "onItemClick at " + position);
             }
 
             @Override
             public void onLongItemClick(View view, int position) {
-
+                Log.d(FACTS_LIST_TAG, "onLongItemClick at " + position);
             }
         }));
     }
 
+    /**
+     * Updates the UI elements based on values received from server.
+     * @param factResponse
+     * @param success
+     */
     private void plotUI(FactResponse factResponse, boolean success) {
         swipeRefreshLayout.setRefreshing(false);
         showHideTopMenuItem(true);
@@ -114,11 +122,18 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
         }
     }
 
+    /**
+     * Callback method when user performs pull to refresh.
+     */
     @Override
     public void onRefresh() {
         getFactInfo();
     }
 
+    /**
+     * Enable/Disable top tool bar based on flag.
+     * @param isEnabled
+     */
     private void showHideTopMenuItem(final boolean isEnabled) {
         if(topMenu != null){
             if(isEnabled) {
@@ -129,13 +144,23 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
         }
     }
 
-    public void setToolbarTitle(String toolbarTitle) {
+    /**
+     * Upates the toolbar title with title string value.
+     * @param toolbarTitle
+     */
+    private void setToolbarTitle(String toolbarTitle) {
         if(!StringUtils.isEmpty(toolbarTitle)){
-            getSupportActionBar().setTitle(toolbarTitle);
+            if(getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(toolbarTitle);
+            }
         }
     }
 
-    public void getFactInfo() {
+    /**
+     * Send REST API Call to retrieve the information from remote server.
+     */
+    private void getFactInfo() {
+        Log.d(FACTS_LIST_TAG, "getFactInfo");
         swipeRefreshLayout.setRefreshing(true);
         activityTextView.setText(getString(R.string.loading_data));
         showHideTopMenuItem(false);
@@ -144,6 +169,7 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
 
             @Override
             public void onResponse(boolean success, Object response, Error error) {
+                Log.d(FACTS_LIST_TAG, "<getFactInfo>::onResponse");
                 if (success && response != null) {
                     FactResponse factResponse = (FactResponse) response;
                     plotUI(factResponse, success);
@@ -151,7 +177,8 @@ public class FactsListActivity extends BaseActivity implements SwipeRefreshLayou
             }
 
             @Override
-            public void onError(Object response, Error error) {
+            public void onError(Error error) {
+                Log.d(FACTS_LIST_TAG, "<getFactInfo>::onError");
                 if (error != null && !StringUtils.isEmpty(error.getError())) {
                     Toast.makeText(FactsListActivity.this, error.getError(), Toast.LENGTH_LONG).show();
                 }

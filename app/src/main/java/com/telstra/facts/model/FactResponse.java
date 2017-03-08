@@ -25,21 +25,13 @@ public class FactResponse implements Serializable {
         return facts;
     }
 
-    public void setFacts(ArrayList<Fact> facts) {
-        this.facts = facts;
-    }
-
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     /**
      * Results can be filtered here based on filter criteria.
-     * @return
+     * @return ArrayList<Fact> after filter operation.</>
      */
     public ArrayList<Fact> getFilteredFacts() {
         ArrayList<Fact> filteredFacts = new ArrayList<>();

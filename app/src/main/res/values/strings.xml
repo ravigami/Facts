@@ -2,6 +2,6 @@
     <string name="app_name">Facts</string>
     <string name="title_activity_facts_list">Facts</string>
     <string name="copyright">Copyright ©Telstra 2017, all Rights Reserved.</string>
-    <string name="loading_data">Loading...</string>
+    <string name="loading_data">Loading…</string>
     <string name="no_data_available">No facts available.\nPlease try again later.</string>
 </resources>

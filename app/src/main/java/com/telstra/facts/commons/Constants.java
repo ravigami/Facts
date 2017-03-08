@@ -7,5 +7,5 @@ package com.telstra.facts.commons;
 public class Constants {
     //public static String kUrl = BuildConfig.BaseUrl;
     public static final int kSplashDisplayTimeout = 1500;
-    public static String kNetworkErrorMessage = "No internet connectivity.";
+    public static final String kNetworkErrorMessage = "No internet connectivity.";
 }

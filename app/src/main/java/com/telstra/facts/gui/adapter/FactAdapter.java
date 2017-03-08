@@ -26,8 +26,8 @@ import butterknife.ButterKnife;
 
 public class FactAdapter extends RecyclerView.Adapter<FactAdapter.FactViewHolder> {
 
-    private Context context;
-    private List<Fact> factList;
+    private final Context context;
+    private final List<Fact> factList;
     private LayoutInflater layoutInflater = null;
 
     public FactAdapter(Context context) {

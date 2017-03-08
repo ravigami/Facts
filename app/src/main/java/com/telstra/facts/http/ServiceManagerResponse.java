@@ -11,5 +11,5 @@ import com.telstra.facts.model.Error;
  */
 public interface ServiceManagerResponse {
     void onResponse(boolean success, Object response, Error error);
-    void onError(Object response, Error error);
+    void onError(Error error);
 }

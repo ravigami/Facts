@@ -12,7 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
 public class HttpManager {
-    public static final String TAG = HttpManager.class.getSimpleName();
+    private static final String TAG = HttpManager.class.getSimpleName();
     public static final String GET_FACTS_API = "https://dl.dropboxusercontent.com/u/746330/facts.json";
 
     private RequestQueue mRequestQueue;
@@ -21,22 +21,18 @@ public class HttpManager {
 
     //////////////////////////////////////////////////////////////////
     private HttpManager(Context context) {
-        // To make sure that this is Application Context
-        // Otherwise the context will go away when activity is gone
+        //Relay on application wide context.
         mContext = context.getApplicationContext();
     }
 
     /**
      * Create Singleton object for HttpManager class
      *
-     * @param context
-     * @return
+     * @return HttpManager object value
      */
     public static synchronized HttpManager getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new HttpManager(context);
-        } else {
-            mInstance.mContext = context.getApplicationContext();
         }
         return mInstance;
     }
@@ -44,9 +40,9 @@ public class HttpManager {
     /**
      * Request current volley queue to operates on requests.
      *
-     * @return
+     * @return Volley request queue object
      */
-    public RequestQueue getRequestQueue() {
+    private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
             mRequestQueue = Volley.newRequestQueue(mContext);
         }
@@ -69,18 +65,7 @@ public class HttpManager {
     }
 
     /**
-     * Adds a generic request.
-     *
-     * @param req
-     * @param <T>
-     */
-    public <T> void addToRequestQueue(Request<T> req) {
-        req.setTag(TAG);
-        getRequestQueue().add(req);
-    }
-
-    /**
-     * Using tag cancel any specfic request execution.
+     * Using tag cancel any specific request execution.
      *
      * @param tag
      */

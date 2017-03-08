@@ -22,7 +22,7 @@ import static com.android.volley.Request.Method;
 
 public class ServiceManager {
 
-    private static final String TAG = ServiceManager.class.getName();
+    private static final String SERVICE_TAG = ServiceManager.class.getName();
     private static ServiceManager mInstance;
 
     /**
@@ -43,9 +43,10 @@ public class ServiceManager {
      * @param managerResponse
      */
     private void provideNoNetworkResponse(final ServiceManagerResponse managerResponse) {
+        Log.d(SERVICE_TAG, "provideNoNetworkResponse");
         Error responseError = getErrorFromMessage(Constants.kNetworkErrorMessage);
         if (managerResponse != null)
-            managerResponse.onError(null, responseError);
+            managerResponse.onError(responseError);
     }
 
     /**
@@ -55,11 +56,11 @@ public class ServiceManager {
      * @param managerResponse
      */
     private void provideVolleyErrorResponse(VolleyError error, final ServiceManagerResponse managerResponse) {
-        Log.d(TAG, "Error : " + error.getLocalizedMessage());
+        Log.d(SERVICE_TAG, "provideVolleyErrorResponse::Error : " + error.getLocalizedMessage());
         Error responseError = getErrorFromMessage(error.getLocalizedMessage());
 
         if (managerResponse != null)
-            managerResponse.onError(null, responseError);
+            managerResponse.onError(responseError);
     }
 
     /**
@@ -71,8 +72,6 @@ public class ServiceManager {
     private Error getErrorFromMessage(String errorDescription) {
         Error error = new Error();
         error.setError(errorDescription);
-        error.setStatus(500);
-        error.setSuccess(false);
         return error;
     }
 
@@ -83,25 +82,27 @@ public class ServiceManager {
      * @param managerResponseCallback
      */
     public void getFactsInformation(final Context context, final ServiceManagerResponse managerResponseCallback) {
+        Log.d(SERVICE_TAG, "getFactsInformation");
         if (Util.isNetworkAvailable(context)) {
             String requestTag = "get_facts_info";
             String apiURL = HttpManager.GET_FACTS_API;
-            String requestBody = null;
 
-            JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Method.GET, apiURL, requestBody, new Response.Listener<JSONObject>() {
+            JsonObjectRequest jsonObjRequest = new JsonObjectRequest(Method.GET, apiURL, (String) null, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
                     Error error = null;
                     FactResponse faceResponse = null;
+                    boolean success = false;
                     try {
                         if (response != null) {
                             faceResponse = parseFactResponse(response);
+                            success = true;
                         }
                     } catch (Exception e) {
                         error = getErrorFromMessage(e.getLocalizedMessage());
                     } finally {
                         if (managerResponseCallback != null)
-                            managerResponseCallback.onResponse(true, faceResponse, error);
+                            managerResponseCallback.onResponse(success, faceResponse, error);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -127,12 +128,12 @@ public class ServiceManager {
      * @param response
      * @return
      */
-    public FactResponse parseFactResponse(JSONObject response) {
+    private FactResponse parseFactResponse(JSONObject response) {
         FactResponse factResponse = new FactResponse();
         try {
             factResponse = new Gson().fromJson(response.toString(), FactResponse.class);
         } catch (Exception e) {
-            Log.d(TAG, "getFactResponse parsing exception " + e.getLocalizedMessage());
+            Log.d(SERVICE_TAG, "getFactResponse parsing exception " + e.getLocalizedMessage());
         }
         return factResponse;
     }
