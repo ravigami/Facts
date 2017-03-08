@@ -10,11 +10,14 @@ import android.util.Log;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.telstra.facts.commons.Constants;
 import com.telstra.facts.commons.Util;
 import com.telstra.facts.model.Error;
+import com.telstra.facts.model.FactResponse;
 
 import org.json.JSONObject;
+
 import static com.android.volley.Request.Method;
 
 public class ServiceManager {
@@ -89,13 +92,16 @@ public class ServiceManager {
                 @Override
                 public void onResponse(JSONObject response) {
                     Error error = null;
+                    FactResponse faceResponse = null;
                     try {
-                        Log.d(TAG, "Response " + response.toString());
+                        if (response != null) {
+                            faceResponse = parseFactResponse(response);
+                        }
                     } catch (Exception e) {
                         error = getErrorFromMessage(e.getLocalizedMessage());
                     } finally {
                         if (managerResponseCallback != null)
-                            managerResponseCallback.onResponse(true, null, error);
+                            managerResponseCallback.onResponse(true, faceResponse, error);
                     }
                 }
             }, new Response.ErrorListener() {
@@ -113,5 +119,21 @@ public class ServiceManager {
         } else {
             provideNoNetworkResponse(managerResponseCallback);
         }
+    }
+
+    /**
+     * Parses the fact response.
+     *
+     * @param response
+     * @return
+     */
+    public FactResponse parseFactResponse(JSONObject response) {
+        FactResponse factResponse = new FactResponse();
+        try {
+            factResponse = new Gson().fromJson(response.toString(), FactResponse.class);
+        } catch (Exception e) {
+            Log.d(TAG, "getFactResponse parsing exception " + e.getLocalizedMessage());
+        }
+        return factResponse;
     }
 }

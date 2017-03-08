@@ -7,7 +7,9 @@ package com.telstra.facts.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Error {
+import java.io.Serializable;
+
+public class Error implements Serializable {
     @SerializedName("success")
     @Expose
     private Boolean success;
