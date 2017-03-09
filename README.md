@@ -37,5 +37,6 @@ This project is created to display facts about Canada from JSON URL feed in Andr
 - ButterKnife (http://jakewharton.github.io/butterknife/)
 - Apache Commons (https://commons.apache.org/proper/commons-lang/)
 
-
+## Output
+- In case if you are intersted in running .apk directly, you can locate .apk at root/Facts.zip. 
 
